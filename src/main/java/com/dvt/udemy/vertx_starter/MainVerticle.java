@@ -8,12 +8,15 @@ public class MainVerticle extends VerticleBase {
 
 
   public static void main(String[] args) {
-    Vertx vetx= Vertx.vertx();
+    Vertx vetx = Vertx.vertx();
     vetx.deployVerticle(new MainVerticle()).onSuccess(success -> {
       System.out.printf("Verticle deployed successfully\n");
-    }).onFailure(err -> { err.printStackTrace(); System.exit(1); });
-
+    }).onFailure(err -> {
+      err.printStackTrace();
+      System.exit(1);
+    });
   }
+
   @Override
   public Future<?> start() {
     return vertx.createHttpServer().requestHandler(req -> {
