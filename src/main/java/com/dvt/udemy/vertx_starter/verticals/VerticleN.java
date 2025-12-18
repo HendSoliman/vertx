@@ -1,10 +1,9 @@
 package com.dvt.udemy.vertx_starter.verticals;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Promise;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class VerticleN extends AbstractVerticle {
 
@@ -12,7 +11,7 @@ public class VerticleN extends AbstractVerticle {
 
   @Override
   public void start(final Promise<Void> startPromise) throws Exception {
-    LOG.debug("Start {} with config {}", getClass().getName(), config().toString());
+    LOG.debug("Start {}  on Thread {} with config {} ", getClass().getName(), Thread.currentThread().getName(), config().toString());
     startPromise.complete();
   }
 }

@@ -3,16 +3,18 @@ package com.dvt.udemy.vertx_starter;
 import io.vertx.core.Future;
 import io.vertx.core.VerticleBase;
 import io.vertx.core.Vertx;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MainVerticle extends VerticleBase {
-
+  private static final Logger LOG = LoggerFactory.getLogger(MainVerticle.class);
 
   public static void main(String[] args) {
     Vertx vetx = Vertx.vertx();
     vetx.deployVerticle(new MainVerticle()).onSuccess(success -> {
-      System.out.printf("Verticle deployed successfully\n");
+      LOG.debug("Verticle deployed successfully");
     }).onFailure(err -> {
-      err.printStackTrace();
+      LOG.error("Verticale failure", err);
       System.exit(1);
     });
   }
@@ -24,7 +26,7 @@ public class MainVerticle extends VerticleBase {
         .putHeader("content-type", "text/plain")
         .end("Hello from Vert.x!");
     }).listen(8888).onSuccess(http -> {
-      System.out.println("HTTP server started on port 8888");
+      LOG.info("HTTP server started on port 8888");
     });
   }
 }
