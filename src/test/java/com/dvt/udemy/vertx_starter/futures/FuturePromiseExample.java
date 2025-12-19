@@ -134,6 +134,10 @@ class FuturePromiseExample {
 
   @Test
   void future_coordination(Vertx vertx, VertxTestContext context) {
+//    1. OS binds port 10000 ✅ (server is already running)
+//    2. log "Another task"
+//    3. log "Even more"
+//    4. log "Server started on port 10000"
     vertx.createHttpServer()
       .requestHandler(request -> LOG.debug("{}", request))
       .listen(10_000)
@@ -151,6 +155,35 @@ class FuturePromiseExample {
         context.completeNow();
       });
   }
+  @Test
+  void startup_steps_order(Vertx vertx, VertxTestContext ctx) {
+    var steps = new java.util.ArrayList<String>();
+
+    vertx.createHttpServer()
+      .requestHandler(req -> req.response().end("OK"))
+      .listen(0) //At this moment: Server is already running
+      .compose(server -> { //Runs only after listen() succeeds
+        steps.add("after-listen"); // means server is bound
+        return Future.succeededFuture(server); //I’m done with my work in this step.Keep the same server and continue the chain.”
+      })
+      .compose(server -> {
+        steps.add("task1");
+        return Future.succeededFuture(server);
+      })
+      .compose(server -> {
+        steps.add("task2");
+        return Future.succeededFuture(server);
+      })
+      .onSuccess(server -> ctx.verify(() -> {
+        org.junit.jupiter.api.Assertions.assertEquals(
+          java.util.List.of("after-listen", "task1", "task2"),
+          steps
+        );
+        ctx.completeNow();
+      }))
+      .onFailure(ctx::failNow);
+  }
+
 
   @Test
   void future_composition(Vertx vertx, VertxTestContext context) {
