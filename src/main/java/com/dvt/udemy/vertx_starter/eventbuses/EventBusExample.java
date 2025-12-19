@@ -23,8 +23,6 @@ public class EventBusExample extends AbstractVerticle {
       .onFailure(err -> LOG.error("Deployment failed", err));
   }
 
-
-
   public static class RequestHandler extends AbstractVerticle {
     static final String ADDRESS = "my.request.address";
 
