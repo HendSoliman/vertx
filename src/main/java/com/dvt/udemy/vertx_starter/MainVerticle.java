@@ -27,6 +27,7 @@ public class MainVerticle extends VerticleBase {
         .end("Hello from Vert.x!");
     }).listen(8888).onSuccess(http -> {
       LOG.info("HTTP server started on port 8888");
+      LOG.info("a new message is added");
     });
   }
 }

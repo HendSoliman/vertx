@@ -1,19 +1,19 @@
 <configuration>
-  <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
     <encoder>
-      <pattern>%msg%n</pattern>
+      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
     </encoder>
   </appender>
 
-  <!-- show ONLY your code (DEBUG) -->
-  <logger name="com.dvt" level="DEBUG" additivity="false">
-    <appender-ref ref="CONSOLE"/>
-  </logger>
+  <!-- Your app -->
+  <logger name="com.dvt" level="DEBUG"/>
+  <logger name="io.netty.resolver.dns.DnsServerAddressStreamProviders" level="ERROR"/>
 
-  <!-- silence libs -->
-  <logger name="io.netty" level="OFF"/>
-  <logger name="io.vertx" level="OFF"/>
+  <!-- Silence noisy libs -->
+  <logger name="io.netty" level="WARN"/>
+  <logger name="io.vertx" level="INFO"/>
 
-  <!-- silence everything else -->
-  <root level="OFF"/>
+  <root level="INFO">
+    <appender-ref ref="STDOUT"/>
+  </root>
 </configuration>
