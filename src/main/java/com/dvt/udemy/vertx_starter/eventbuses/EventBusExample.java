@@ -14,10 +14,16 @@ public class EventBusExample extends AbstractVerticle {
   public static void main(String[] args) {
     LOG.debug("EventBusExample started");
     final Vertx vertx = Vertx.vertx();
+//    vertx.deployVerticle(new ResponseHandler());
+//    vertx.deployVerticle(new RequestHandler());
 
-    vertx.deployVerticle(new RequestHandler());
-    vertx.deployVerticle(new ResponseHandler());
+
+    vertx.deployVerticle(new ResponseHandler())
+      .compose(id -> vertx.deployVerticle(new RequestHandler()))
+      .onFailure(err -> LOG.error("Deployment failed", err));
   }
+
+
 
   public static class RequestHandler extends AbstractVerticle {
     static final String ADDRESS = "my.request.address";
