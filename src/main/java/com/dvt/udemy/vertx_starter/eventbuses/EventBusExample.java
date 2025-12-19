@@ -4,6 +4,7 @@ import com.dvt.udemy.vertx_starter.verticals.MainVerticle;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Promise;
 import io.vertx.core.Vertx;
+import io.vertx.core.json.JsonObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,7 +31,7 @@ public class EventBusExample extends AbstractVerticle {
     public void start(final Promise<Void> startPromise) throws Exception {
       startPromise.complete();
       var eventBus = vertx.eventBus();
-      final String message = "Hello World!";
+      final JsonObject message = new JsonObject().put("message" , "Hello World!").put("version", 2);
       LOG.debug("Sending: {}", message);
       eventBus.<String>request(ADDRESS, message).onSuccess(
         reply -> LOG.debug("Response: {}", reply.body())
