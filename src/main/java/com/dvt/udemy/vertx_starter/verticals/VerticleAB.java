@@ -12,7 +12,8 @@ public class VerticleAB extends AbstractVerticle {
 
   @Override
   public void start(final Promise<Void> startPromise) throws Exception {
-    LOG.debug("Start {}", getClass().getName());
+    LOG.debug("Start {} on Thread {}", getClass().getName(), Thread.currentThread().getName());
+
     startPromise.complete();
   }
 
