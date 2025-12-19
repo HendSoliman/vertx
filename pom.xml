@@ -63,15 +63,13 @@
       <scope>test</scope>
     </dependency>
     <!--      Logger -->
-    <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
-    <!-- SLF4J implementation -->
-
-  <dependency>
+    <!-- Logging implementation -->
+    <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
       <version>1.5.22</version>
-      <scope>compile</scope>
     </dependency>
+
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
