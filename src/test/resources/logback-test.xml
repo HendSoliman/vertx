@@ -1,0 +1,20 @@
+<configuration>
+  <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <!-- result only -->
+      <pattern>%msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <!-- show ONLY your package, at DEBUG -->
+  <logger name="com.dvt.udemy.vertx_starter" level="DEBUG" additivity="false">
+    <appender-ref ref="CONSOLE"/>
+  </logger>
+
+  <!-- silence frameworks -->
+  <logger name="io.netty" level="OFF"/>
+  <logger name="io.vertx" level="OFF"/>
+
+  <!-- silence everything else -->
+  <root level="OFF"/>
+</configuration>
